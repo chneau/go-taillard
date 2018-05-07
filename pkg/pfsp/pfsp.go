@@ -6,8 +6,8 @@ type Instance struct {
 	Jobs       int
 	Machines   int
 	Seed       int
-	UpperBound int
-	LowerBound int
+	UpperBound float64
+	LowerBound float64
 	Instance   int
 	Matrix     [][]float64
 }

@@ -38,20 +38,19 @@ func new(jobs, machines, instanceNumber int) (*Instance, error) {
 		if err != nil {
 			continue
 		}
-		n := int(number)
 		switch found {
 		case 0:
-			instance.Jobs = n
+			instance.Jobs = int(number)
 		case 1:
-			instance.Machines = n
+			instance.Machines = int(number)
 		case 2:
-			instance.Seed = n
+			instance.Seed = int(number)
 		case 3:
-			instance.UpperBound = n
+			instance.UpperBound = float64(number)
 		case 4:
-			instance.LowerBound = n
+			instance.LowerBound = float64(number)
 		default:
-			data = append(data, float64(n))
+			data = append(data, float64(number))
 		}
 		found++
 	}
