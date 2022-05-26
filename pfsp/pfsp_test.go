@@ -3,20 +3,21 @@ package pfsp
 import (
 	"fmt"
 	"io/ioutil"
+	"sync"
 	"testing"
-
-	"github.com/chneau/limiter"
 )
 
 func TestNew(t *testing.T) {
-	files, err := ioutil.ReadDir("../../instances")
+	files, err := ioutil.ReadDir("instances")
 	if err != nil {
 		t.Errorf("could not read dir instance: %v", err)
 	}
-	limit := limiter.New(32)
+	wg := sync.WaitGroup{}
+	wg.Add(len(files))
 	for i := range files {
 		f := files[i]
-		limit.Execute(func() {
+		go func() {
+			defer wg.Done()
 			jobs := 0
 			machines := 0
 			instanceNumber := 0
@@ -25,7 +26,7 @@ func TestNew(t *testing.T) {
 			if err != nil {
 				t.Errorf("error with jobs %d machines %d instanceNumber %d: %v", jobs, machines, instanceNumber, err)
 			}
-		})
+		}()
 	}
-	limit.Wait()
+	wg.Wait()
 }

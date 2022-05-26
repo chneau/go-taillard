@@ -3,22 +3,18 @@ package pfsp
 import (
 	"bufio"
 	"bytes"
+	"embed"
 	"fmt"
 	"io/ioutil"
 	"strconv"
-
-	// statik
-	_ "github.com/chneau/go-taillard/pkg/statik"
-	"github.com/rakyll/statik/fs"
 )
 
+//go:embed instances
+var instances embed.FS
+
 func new(jobs, machines, instanceNumber int) (*Instance, error) {
-	fsys, err := fs.New()
-	if err != nil {
-		return nil, fmt.Errorf("could not instanciate new fs: %v", err)
-	}
-	fileName := fmt.Sprintf("/tai%d_%d_%d.fsp", jobs, machines, instanceNumber)
-	f, err := fsys.Open(fileName)
+	fileName := fmt.Sprintf("instances/tai%d_%d_%d.fsp", jobs, machines, instanceNumber)
+	f, err := instances.Open(fileName)
 	if err != nil {
 		return nil, fmt.Errorf("could not open instance %s: %v", fileName, err)
 	}

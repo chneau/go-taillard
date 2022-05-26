@@ -3,8 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/chneau/go-taillard/pkg/pfsp"
-	_ "github.com/chneau/go-taillard/pkg/statik"
+	"github.com/chneau/go-taillard/pfsp"
 )
 
 func init() {
@@ -22,5 +21,4 @@ func main() {
 	instance, err := pfsp.NewMakespan(20, 5, 0)
 	ce(err, "pfsp.New")
 	log.Printf("%+v", instance)
-
 }
