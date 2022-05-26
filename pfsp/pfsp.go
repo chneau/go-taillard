@@ -13,6 +13,6 @@ type Instance struct {
 }
 
 // Evaluate returns the fitness of the given permutation.
-func (instance *Instance) Evaluate(permuration []int) (float64, error) {
-	return instance.Evaluater.Evaluate(instance, permuration)
+func (instance *Instance) Evaluate(permutation []int) (float64, error) {
+	return instance.Evaluater.Evaluate(instance, permutation)
 }
