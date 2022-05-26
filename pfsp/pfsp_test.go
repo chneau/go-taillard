@@ -15,13 +15,13 @@ func TestNew(t *testing.T) {
 	wg := sync.WaitGroup{}
 	wg.Add(len(files))
 	for i := range files {
-		f := files[i]
+		file := files[i]
 		go func() {
 			defer wg.Done()
 			jobs := 0
 			machines := 0
 			instanceNumber := 0
-			fmt.Sscanf(f.Name(), "tai%d_%d_%d", &jobs, &machines, &instanceNumber)
+			fmt.Sscanf(file.Name(), "tai%d_%d_%d", &jobs, &machines, &instanceNumber)
 			_, err := new(jobs, machines, instanceNumber)
 			if err != nil {
 				t.Errorf("error with jobs %d machines %d instanceNumber %d: %v", jobs, machines, instanceNumber, err)
